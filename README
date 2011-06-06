@@ -6,6 +6,14 @@ See:
 
 http://developers.facebook.com/docs/authentication/canvas
 
+== Installation
+
+use Rack::Facebook::SignedRequest, { :secret => { your_app_id.to_i => "yourappsecret" } } do |env|
+  # Optional condition block must return a true-ish value for SignedRequest to actually do
+  # anything. If no block is given, the middleware is always run (i.e. it's active by default).
+  env["HTTP_HOST"] =~ /^facebook\./
+end
+
 == Contributing to rack-facebook-signed-request
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
