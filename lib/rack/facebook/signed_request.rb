@@ -20,23 +20,26 @@ module Rack
       end
 
       def call(env)
-        request = Rack::Request.new(env)
-
-        signed_request = request.params['signed_request']
-        unless signed_request.nil?
-          signature, signed_params = signed_request.split('.')
-
-          unless signed_request_is_valid?(secret, signature, signed_params, request.params['api_id'])
-            return Rack::Response.new(["Invalid signature"], 400).finish
-          end
-
-          signed_params = Yajl::Parser.new.parse(base64_url_decode(signed_params))
-
-          # add JSON params to request
-          signed_params.each do |k,v|
-            request.params[k] = v
+        if not @condition or @condition.call(env)
+          request = Rack::Request.new(env)
+  
+          signed_request = request.params['signed_request']
+          unless signed_request.nil?
+            signature, signed_params = signed_request.split('.')
+  
+            unless signed_request_is_valid?(secret, signature, signed_params, request.params['api_id'])
+              return Rack::Response.new(["Invalid signature"], 400).finish
+            end
+  
+            signed_params = Yajl::Parser.new.parse(base64_url_decode(signed_params))
+  
+            # add JSON params to request
+            signed_params.each do |k,v|
+              request.params[k] = v
+            end
           end
         end
+        
         @app.call(env)
       end
 
