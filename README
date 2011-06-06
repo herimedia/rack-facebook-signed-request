@@ -8,7 +8,7 @@ http://developers.facebook.com/docs/authentication/canvas
 
 == Installation
 
-use Rack::Facebook::SignedRequest, { :secret => { your_app_id.to_i => "yourappsecret" } } do |env|
+use Rack::Facebook::SignedRequest, { :secret => "yourappsecret" } do |env|
   # Optional condition block must return a true-ish value for SignedRequest to actually do
   # anything. If no block is given, the middleware is always run (i.e. it's active by default).
   env["HTTP_HOST"] =~ /^facebook\./
