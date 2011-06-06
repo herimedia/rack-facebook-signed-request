@@ -48,6 +48,8 @@ module Rack
       private
 
         def signed_request_is_valid?(secret, signature, params)
+          return false unless [signature, params].all? { |str| str.respond_to?(:tr) }
+          
           signature = base64_url_decode(signature)
           expected_signature = OpenSSL::HMAC.digest('SHA256', secret, params.tr("-_", "+/"))
           return signature == expected_signature
