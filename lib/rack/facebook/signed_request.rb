@@ -37,6 +37,8 @@ module Rack
             signed_params.each do |k,v|
               request.params[k] = v
             end
+            
+            env["REQUEST_METHOD"] = "GET"
           end
         end
         
