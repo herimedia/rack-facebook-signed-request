@@ -31,12 +31,7 @@ module Rack
               return Rack::Response.new(["Invalid signature"], 400).finish
             end
   
-            signed_params = Yajl::Parser.new.parse(base64_url_decode(signed_params))
-  
-            # add JSON params to request
-            signed_params.each do |k,v|
-              request.params[k] = v
-            end
+            request.params[:facebook_signed_request] = Yajl::Parser.new.parse(base64_url_decode(signed_params))
             
             env["REQUEST_METHOD"] = "GET"
           end
