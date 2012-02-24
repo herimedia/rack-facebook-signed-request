@@ -26,25 +26,8 @@ Jeweler::Tasks.new do |gem|
   gem.add_development_dependency 'shoulda', '>= 0'
   gem.add_development_dependency 'bundler', '~> 1.0.0'
   gem.add_development_dependency 'jeweler', '~> 1.5.1'
-  gem.add_development_dependency 'rcov', '>= 0'
 end
 Jeweler::RubygemsDotOrgTasks.new
-
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-end
-
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-end
-
-task :default => :test
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|

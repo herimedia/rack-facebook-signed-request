@@ -24,19 +24,13 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/rack-facebook-signed-request.rb",
-    "lib/rack/facebook/signed_request.rb",
-    "test/helper.rb",
-    "test/test_rack-facebook-signed-request.rb"
+    "lib/rack/facebook/signed_request.rb"
   ]
   s.homepage = %q{http://github.com/gamesthatgive/rack-facebook-signed-request}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Simple Rack middle for parsing and validation Facebook signed_request param.}
-  s.test_files = [
-    "test/helper.rb",
-    "test/test_rack-facebook-signed-request.rb"
-  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
