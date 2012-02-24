@@ -15,8 +15,11 @@ module Rack
         @options = options
       end
 
-      def secret
-        @options.fetch(:secret)
+      def secret_for(env = nil)
+        @secret ||= begin
+          secret = @options.fetch(:secret)
+          secret.respond_to?(:call) ? secret.call(env) : secret
+        end
       end
 
       def call(env)
@@ -27,7 +30,7 @@ module Rack
           unless signed_request.nil?
             signature, signed_params = signed_request.split('.')
   
-            unless signed_request_is_valid?(secret, signature, signed_params)
+            unless signed_request_is_valid?(secret_for(env), signature, signed_params)
               return Rack::Response.new(["Invalid signature"], 400).finish
             end
   
