@@ -16,10 +16,8 @@ module Rack
       end
 
       def secret_for(env = nil)
-        @secret ||= begin
-          secret = @options.fetch(:secret)
-          secret.respond_to?(:call) ? secret.call(env) : secret
-        end
+        @secret ||= @options.fetch(:secret)
+        @secret.respond_to?(:call) ? @secret.call(env) : @secret
       end
 
       def call(env)
